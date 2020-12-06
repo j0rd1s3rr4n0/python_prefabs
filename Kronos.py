@@ -1,12 +1,21 @@
+import platform
 import time
 import os
 x = 0 #Define segundos
 y = 0 #Define minutos
 z = 0 #Define horas
 s = True #Define start
+sysos = platform.system()
+if sysos =='Windows':
+	clear = 'cls'
+elif sysos =='Linux':
+	clear = 'clear'
+elif sysos =='Darwin':
+	clear = 'clear'
+	
 print('0 : 0 : 0 ~~~~> START')
 while s != False:	
-	os.system('cls') ## Si se usa en linux usar 'clear'
+	os.system(clear)
 	x = x + 1
 	print('hh:mm:ss')
 	print(z,":",y,":",x)
