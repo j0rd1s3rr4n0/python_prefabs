@@ -6,8 +6,7 @@ hour = 0
 start = True
 while start != False:	
 	second = second + 1
-	print(hour,":",minute,":",second)
+	print("Tiempo de ejecución :",hour,":",minute,":",second)
+	os.system('shutdowm /a')
 	time.sleep(1)
-	if second == 0.5:
-		os.system('shutdowm -a')
-		os.system('cls')
+	os.system('cls')
