@@ -1,3 +1,13 @@
+#-------------------------------------------------------------------------------
+# Name:        ChatGPTCli
+# Purpose:     Allows the user to ask questions to chatGPT from terminal
+#
+# Author:      J0rd1S3rr4n0
+#
+# Created:     09/02/2023
+# Copyright:   (c) J0rd1S3rr4n0 2023
+# Licence:     Apache License 2.0 
+#-------------------------------------------------------------------------------
 import os, sys, signal, openai, random, termcolor
 
 openai.api_key = ""
