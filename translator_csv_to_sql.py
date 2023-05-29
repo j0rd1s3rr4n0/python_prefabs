@@ -57,13 +57,13 @@ def realizar_tarea():
 
                 # Traducir el texto del idioma_origen a idioma_destino
                 texto_traducido = traducir(texto, idioma_origen, idioma_destino,proxy_switch)
-                texto_traducido = texto_traducido.replace("'","''")
+                texto_traducido = texto_traducido.replace("'","''").replace('"','”')
 
                 # Reemplazar el texto original con el texto traducido en la posición 3
                 linea[3] = texto_traducido
 
         # Generar el nombre del archivo SQL
-        nombre_sql = entrada_nombre + '.sql'
+        nombre_sql = nombre_archivo + '_translated.sql'
         ventana.title('Tarea de traducción y generación de archivo SQL [Reemplazando Contenido]')
         # Guardar los cambios en el archivo CSV
         with open(ruta_csv, 'w', newline='') as archivo_csv:
@@ -78,7 +78,7 @@ def realizar_tarea():
                 nom_etiqueta = linea[2]
                 contingut = linea[3]
                 idioma = linea[4]
-                archivo_sql.write(f"({id_pagina}, '{nom_etiqueta}', '{contingut}', '{idioma}'),\n")
+                archivo_sql.write(f"({id_pagina}, '{nom_etiqueta}', '{contingut}', '{idioma_destino}'),\n")
 
         # Mostrar un mensaje de finalización
         messagebox.showinfo('Tarea completada', f"La tarea ha sido completada. Se ha generado el archivo {nombre_sql}")
