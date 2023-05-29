@@ -1,4 +1,39 @@
+#-------------------------------------------------------------------------------
+# Name:        TranslatorCSVtoSQL
+# Purpose:     Traduce lso textos de un .csv delimitado a inserts SQL 
+#              
+#
+# Author:      J0rd1S3rr4n0
+#
+# Created:     29/05/2023
+# Copyright:   (c) J0rd1S3rr4n0 2023
+# Licence:     Apache License 2.0 
+#-------------------------------------------------------------------------------
 # -*- coding: utf-8 -*-
+"""
+Script de Python para traducción de archivos CSV.
+
+Este script permite realizar la traducción de archivos CSV mediante el uso de Python. A continuación se detalla el funcionamiento del script:
+
+Abrir y ejecutar el script de Python.
+Seleccionar el idioma de origen y el idioma de destino.
+Especificar el nombre de la tabla de la base de datos.
+Opcionalmente, seleccionar si se utilizará un proxy (aún no implementado).
+Ingresar un nombre para el archivo SQL (actualmente no funcional, se recomienda ingresar tres caracteres cualquiera).
+Presionar el botón de ejecución.
+Seleccionar un archivo CSV previamente exportado como "Texto delimitado".
+Esperar unos segundos o minutos mientras se realiza la traducción.
+Se generará un nuevo archivo con el mismo nombre del archivo CSV, pero con "_translated.sql" agregado al final.
+Se recomienda revisar el archivo generado y eliminar la última coma agregada al final del mismo.
+El formato esperado del archivo CSV es el siguiente:
+
+Columnas: id, id_pagina, nomEtiqueta, contingut, idioma, repetido.
+Si alguna columna no existe, se pueden añadir con valores nulos o ceros.
+Los delimitadores de las columnas deben ser ";".
+¡Importante! Se debe ejecutar el script como administrador para poder obtener los privilegios necesarios en caso de ser requeridos.
+
+"""
+#-------------------------------------------------------------------------------
 import csv
 import sys
 from tkinter import *
@@ -7,7 +42,7 @@ from translate import Translator
 from tkinter import messagebox
 import webbrowser
 import ctypes
-
+#-------------------------------------------------------------------------------
 idiomas_list = ['es','en','ca','fr','it','de']
 idioma_origen = ''
 idioma_destino = ''
@@ -18,7 +53,7 @@ proxy = {
 'https':'https://37.235.24.194:3128',
 }
 proxy_switch = False
-
+#-------------------------------------------------------------------------------
 # Función para traducir un texto utilizando la biblioteca translate y un proxy
 def traducir(texto, idioma_origen, idioma_destino,proxy_switch):
     translator = Translator(from_lang=idioma_origen, to_lang=idioma_destino)
@@ -105,49 +140,56 @@ def configurar_texto_boton():
 def abrir_enlace(event):
     webbrowser.open("https://github.com/j0rd1s3rr4n0")
 
-print("Idiomas Disponibles:")
-for idioma in idiomas_list:
-    print(" - "+idioma)
-while idioma_origen not in idiomas_list:
-    idioma_origen = input("Idioma Original: ")
 
-while idioma_destino not in idiomas_list:
-    idioma_destino = input("Idioma Final: ")
-tabla_name = ''
-while len(tabla_name) < 3:
-    tabla_name = str(input("Nombre de la tabla de Base de Datos: "))
-switch_txt_proxy = ''
-while switch_txt_proxy.upper() not in ['SI','SÍ','NO','S','N']:
-    switch_txt_proxy = str(input("Usar Proxy (S/N): "))
-if(switch_txt_proxy in ['SI','S','SÍ']):
-    proxy_switch = True
 
-# Crear la ventana principal
-ventana = Tk()
+#-------------------------------------------------------------------------------
+def main():
+    print("Idiomas Disponibles:")
+    for idioma in idiomas_list:
+        print(" - "+idioma)
+    while idioma_origen not in idiomas_list:
+        idioma_origen = input("Idioma Original: ")
 
-# Configurar la ventana
-ventana.title('Tarea de traducción y generación de archivo SQL')
-ventana.geometry('550x100')
+    while idioma_destino not in idiomas_list:
+        idioma_destino = input("Idioma Final: ")
+    tabla_name = ''
+    while len(tabla_name) < 3:
+        tabla_name = str(input("Nombre de la tabla de Base de Datos: "))
+    switch_txt_proxy = ''
+    while switch_txt_proxy.upper() not in ['SI','SÍ','NO','S','N']:
+        switch_txt_proxy = str(input("Usar Proxy (S/N): "))
+    if(switch_txt_proxy in ['SI','S','SÍ']):
+        proxy_switch = True
 
-# Crear un label descriptivo
-label_nombre = Label(ventana, text='Nombre del nuevo archivo SQL:')
-label_nombre.pack()
+    # Crear la ventana principal
+    ventana = Tk()
 
-# Crear un campo de entrada
-entrada_nombre = Entry(ventana)
-entrada_nombre.pack(pady=5)
+    # Configurar la ventana
+    ventana.title('Tarea de traducción y generación de archivo SQL')
+    ventana.geometry('550x100')
 
-# Crear un botón para iniciar la tarea
-boton_iniciar = Button(ventana, text='', command=solicitar_administrador)
-boton_iniciar.pack()
+    # Crear un label descriptivo
+    label_nombre = Label(ventana, text='Nombre del nuevo archivo SQL:')
+    label_nombre.pack()
 
-# Configurar el texto del botón al cargar la ventana
-configurar_texto_boton()
+    # Crear un campo de entrada
+    entrada_nombre = Entry(ventana)
+    entrada_nombre.pack(pady=5)
 
-# Crear un label enlace
-label_enlace = Label(ventana, text='Developed By J0rd1S3rr4n0', fg='blue', cursor='hand2')
-label_enlace.pack()
-label_enlace.bind('<Button-1>', abrir_enlace)
+    # Crear un botón para iniciar la tarea
+    boton_iniciar = Button(ventana, text='', command=solicitar_administrador)
+    boton_iniciar.pack()
 
-# Ejecutar el bucle principal de la interfaz gráfica
-ventana.mainloop()
+    # Configurar el texto del botón al cargar la ventana
+    configurar_texto_boton()
+
+    # Crear un label enlace
+    label_enlace = Label(ventana, text='Developed By J0rd1S3rr4n0', fg='blue', cursor='hand2')
+    label_enlace.pack()
+    label_enlace.bind('<Button-1>', abrir_enlace)
+
+    # Ejecutar el bucle principal de la interfaz gráfica
+    ventana.mainloop()
+
+if __name__ == '__main__':
+    main()
