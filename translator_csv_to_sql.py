@@ -143,53 +143,51 @@ def abrir_enlace(event):
 
 
 #-------------------------------------------------------------------------------
-def main():
-    print("Idiomas Disponibles:")
-    for idioma in idiomas_list:
-        print(" - "+idioma)
-    while idioma_origen not in idiomas_list:
-        idioma_origen = input("Idioma Original: ")
 
-    while idioma_destino not in idiomas_list:
-        idioma_destino = input("Idioma Final: ")
-    tabla_name = ''
-    while len(tabla_name) < 3:
-        tabla_name = str(input("Nombre de la tabla de Base de Datos: "))
-    switch_txt_proxy = ''
-    while switch_txt_proxy.upper() not in ['SI','SÍ','NO','S','N']:
-        switch_txt_proxy = str(input("Usar Proxy (S/N): "))
-    if(switch_txt_proxy in ['SI','S','SÍ']):
-        proxy_switch = True
+print("Idiomas Disponibles:")
+for idioma in idiomas_list:
+    print(" - "+idioma)
+while idioma_origen not in idiomas_list:
+    idioma_origen = input("Idioma Original: ")
 
-    # Crear la ventana principal
-    ventana = Tk()
+while idioma_destino not in idiomas_list:
+    idioma_destino = input("Idioma Final: ")
+tabla_name = ''
+while len(tabla_name) < 3:
+    tabla_name = str(input("Nombre de la tabla de Base de Datos: "))
+switch_txt_proxy = ''
+while switch_txt_proxy.upper() not in ['SI','SÍ','NO','S','N']:
+    switch_txt_proxy = str(input("Usar Proxy (S/N): "))
+if(switch_txt_proxy in ['SI','S','SÍ']):
+    proxy_switch = True
 
-    # Configurar la ventana
-    ventana.title('Tarea de traducción y generación de archivo SQL')
-    ventana.geometry('550x100')
+# Crear la ventana principal
+ventana = Tk()
 
-    # Crear un label descriptivo
-    label_nombre = Label(ventana, text='Nombre del nuevo archivo SQL:')
-    label_nombre.pack()
+# Configurar la ventana
+ventana.title('Tarea de traducción y generación de archivo SQL')
+ventana.geometry('550x100')
 
-    # Crear un campo de entrada
-    entrada_nombre = Entry(ventana)
-    entrada_nombre.pack(pady=5)
+# Crear un label descriptivo
+label_nombre = Label(ventana, text='Nombre del nuevo archivo SQL:')
+label_nombre.pack()
 
-    # Crear un botón para iniciar la tarea
-    boton_iniciar = Button(ventana, text='', command=solicitar_administrador)
-    boton_iniciar.pack()
+# Crear un campo de entrada
+entrada_nombre = Entry(ventana)
+entrada_nombre.pack(pady=5)
 
-    # Configurar el texto del botón al cargar la ventana
-    configurar_texto_boton()
+# Crear un botón para iniciar la tarea
+boton_iniciar = Button(ventana, text='', command=solicitar_administrador)
+boton_iniciar.pack()
 
-    # Crear un label enlace
-    label_enlace = Label(ventana, text='Developed By J0rd1S3rr4n0', fg='blue', cursor='hand2')
-    label_enlace.pack()
-    label_enlace.bind('<Button-1>', abrir_enlace)
+# Configurar el texto del botón al cargar la ventana
+configurar_texto_boton()
 
-    # Ejecutar el bucle principal de la interfaz gráfica
-    ventana.mainloop()
+# Crear un label enlace
+label_enlace = Label(ventana, text='Developed By J0rd1S3rr4n0', fg='blue', cursor='hand2')
+label_enlace.pack()
+label_enlace.bind('<Button-1>', abrir_enlace)
 
-if __name__ == '__main__':
-    main()
+# Ejecutar el bucle principal de la interfaz gráfica
+ventana.mainloop()
+
